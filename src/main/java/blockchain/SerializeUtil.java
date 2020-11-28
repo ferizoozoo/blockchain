@@ -1,12 +1,6 @@
 package blockchain;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-
+import java.io.*;
 
 public class SerializeUtil {
     public static void serialize(Object obj, String fileName) throws IOException {
@@ -17,9 +11,7 @@ public class SerializeUtil {
         oos.close();
     }
 
-    /**
-     * Deserialize to an object from the file
-     */
+    // Deserialize to an object from the file
     public static Object deserialize(File file) throws IOException, ClassNotFoundException {
         FileInputStream fis = new FileInputStream(file);
         BufferedInputStream bis = new BufferedInputStream(fis);

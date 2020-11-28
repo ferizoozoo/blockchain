@@ -1,20 +1,29 @@
 package blockchain;
 
 import java.io.File;
+import java.io.IOException;
 
 public class BlockChainFileUtil {
     private static String blockChainFileName = "Blockchain";
-    
-    public static BlockChain getOrCreateBlockChain() throws IOException, ClassNotFoundException {
-        File blockChainFile = new File(blockChainFileName);
-        if (blockChainFile.exists() && blockChainFile.isFile()) {
-            return (BlockChain) SerializeUtil.deserialize(blockChainFile);   
+
+    public static BlockChain getOrCreateBlockChain() {
+        BlockChain blockChain = new BlockChain();
+        try {
+            File blockChainFile = new File(blockChainFileName);
+            if (blockChainFile.exists() && blockChainFile.isFile()) {
+                blockChain = (BlockChain) SerializeUtil.deserialize(blockChainFile);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         } 
-        return new BlockChain();
+        return blockChain;
     }
-    
-    public static void saveBlockChain(BlockChain blockchain) throws IOException {
-        File blockChainFile = new File(blockChainFileName);
-        SerializeUtil.serialize(blockchain, blockChainFileName);
+
+    public static void saveBlockChain(BlockChain blockchain) {
+        try {
+            SerializeUtil.serialize(blockchain, blockChainFileName);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
